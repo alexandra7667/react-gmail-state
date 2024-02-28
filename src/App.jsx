@@ -10,18 +10,17 @@ import './styles/App.css'
  * This hoisting allows the function to be accessible even before its actual declaration in the code.
  * 
  */
-const getReadEmails = emails => emails.filter(email => !email.read)
+const getReadEmails = (emails) => emails.filter(email => !email.read) //olästa mail ska räknas som antal i inbox
+const getStarredEmails = (emails) => emails.filter(email => email.starred)
 
 
 function App() {
   // Use initialEmails for state
-  console.log(initialEmails)
+  //console.log(initialEmails)
 
   const [emails, setEmails] = useState(initialEmails) //element i denna lista ändras ej. endast i return så filtreras email med hide read
   const [hideRead, setHideRead] = useState(false)
 
-  const readCount = (emails.filter(email => !email.read)).length
-  const starredCount = (emails.filter(email => email.starred)).length
 
   //when the state of a React component changes, it triggers a re-render of the component
   //Eftersom map funktionen bara kör en operation på varje item i listan är alla items kvar i updatedEmails
@@ -60,7 +59,7 @@ function App() {
             onClick={() => { }}
           >
             <span className="label">Inbox</span>
-            <span className="count">{readCount}</span>
+            <span className="count">{getReadEmails(filteredEmails).length}</span>
           </li>
 
           <li
@@ -68,7 +67,7 @@ function App() {
             onClick={() => { }}
           >
             <span className="label">Starred</span>
-            <span className="count">{starredCount}</span>
+            <span className="count">{getStarredEmails(filteredEmails).length}</span>
           </li>
 
           <li className="item toggle">
